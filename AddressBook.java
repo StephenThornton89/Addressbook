@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.SwingUtilities;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,9 +76,9 @@ public class AddressBook extends JFrame {
       // add actions to File menu
       fileMenu.add( newAction );
       fileMenu.add( saveAction );
-      fileMenu.add( deleteAction );
+      fileMenu.add(deleteAction);
       fileMenu.addSeparator();
-      fileMenu.add( searchAction );
+      fileMenu.add(searchAction);
       fileMenu.addSeparator();
       fileMenu.add( exitAction );
 
@@ -156,13 +157,19 @@ public class AddressBook extends JFrame {
    // method to launch program execution
    public static void main( String args[] )
    {
-      try {
-         UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-         //com.sun.java.swing.plaf.n.NimbusLookAndFeel
-      } catch (Exception ex) {
-         ex.printStackTrace();
-      }
-      new AddressBook();
+
+      SwingUtilities.invokeLater(new Runnable() {
+         @Override
+         public void run() {
+            try {
+               UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+               //com.sun.java.swing.plaf.n.NimbusLookAndFeel
+            } catch (Exception ex) {
+               ex.printStackTrace();
+            }
+            new AddressBook();
+         }
+      });
    }
 
    // Private inner class defines action that enables 
@@ -335,7 +342,7 @@ public class AddressBook extends JFrame {
          putValue( SMALL_ICON, new ImageIcon(
                  getClass().getResource( "images/Find24.png" ) ) );
          putValue( SHORT_DESCRIPTION, "Search" );
-         putValue( LONG_DESCRIPTION,
+         putValue(LONG_DESCRIPTION,
                  "Search for an address book entry" );
          putValue( MNEMONIC_KEY, new Integer( 'r' ) );
       }

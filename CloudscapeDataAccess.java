@@ -222,8 +222,8 @@ public class CloudscapeDataAccess
          // update addresses table
          sqlUpdateAddress.setString( 1, person.getAddress1() );
          sqlUpdateAddress.setString( 2, person.getAddress2() );
-         sqlUpdateAddress.setString( 3, person.getAddress1() );
-         sqlUpdateAddress.setString( 4, person.getAddress2() );
+         sqlUpdateAddress.setString( 3, person.getAddress3() );
+         sqlUpdateAddress.setString( 4, person.getAddress4() );
          sqlUpdateAddress.setString( 5, person.getcounty() );
          sqlUpdateAddress.setString( 6, person.getProvince() );
          sqlUpdateAddress.setString( 7, person.geteircode() );
