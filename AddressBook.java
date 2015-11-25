@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.SwingUtilities;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -360,10 +361,12 @@ public class AddressBook extends JFrame {
 
             // Execute search. If found, AddressBookEntry
             // is returned containing data.
-            AddressBookEntry person = database.findPerson(
+            ArrayList<AddressBookEntry> People = database.findPerson(
                     lastName );
-
-            if ( person != null ) {
+            int size=People.size();
+            for(int i=0;i<size;i++) {
+               AddressBookEntry person = People.get(i);
+               if (person != null) {
 
                   // create window to display AddressBookEntry
                   AddressBookEntryFrame entryFrame =
@@ -376,12 +379,11 @@ public class AddressBook extends JFrame {
                   desktop.add(entryFrame);
                   entryFrame.setVisible(true);
 
+               } else
+                  JOptionPane.showMessageDialog(desktop,
+                          "Entry with last name \"" + lastName +
+                                  "\" not found in address book");
             }
-            else
-               JOptionPane.showMessageDialog( desktop,
-                       "Entry with last name \"" + lastName +
-                               "\" not found in address book" );
-
          }  // end "if ( lastName == null )"
 
       }  // end method actionPerformed

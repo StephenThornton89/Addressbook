@@ -6,6 +6,7 @@
 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class CloudscapeDataAccess
         implements AddressBookDataAccess {
@@ -154,42 +155,45 @@ public class CloudscapeDataAccess
 
    // Locate specified person. Method returns AddressBookEntry
    // containing information.
-   public AddressBookEntry findPerson( String lastName )
+   public ArrayList<AddressBookEntry> findPerson( String lastName )
    {
       try {
+         ArrayList<AddressBookEntry> People =new ArrayList<>();
          // set query parameter and execute query
          sqlFind.setString( 1, lastName );
          ResultSet resultSet = sqlFind.executeQuery();
 
          // if no records found, return immediately
-         if ( !resultSet.next() )
-            return null;
+         //if ( !resultSet.next() )
+          //  return null;
+         while(resultSet.next()) {
+            // create new AddressBookEntry
+            AddressBookEntry person = new AddressBookEntry(
+                    resultSet.getInt(1));
 
-         // create new AddressBookEntry
-         AddressBookEntry person = new AddressBookEntry(
-                 resultSet.getInt( 1 ) );
+            // set AddressBookEntry properties
+            person.setFirstName(resultSet.getString(2));
+            person.setLastName(resultSet.getString(3));
 
-         // set AddressBookEntry properties
-         person.setFirstName(resultSet.getString(2));
-         person.setLastName(resultSet.getString(3));
+            person.setAddressID(resultSet.getInt(4));
+            person.setAddress1(resultSet.getString(5));
+            person.setAddress2(resultSet.getString(6));
+            person.setAddress3(resultSet.getString(7));
+            person.setAddress4(resultSet.getString(8));
+            person.setcounty(resultSet.getString(9));
+            person.setProvince(resultSet.getString(10));
+            person.seteircode(resultSet.getString(11));
 
-         person.setAddressID(resultSet.getInt(4));
-         person.setAddress1(resultSet.getString(5));
-         person.setAddress2(resultSet.getString(6));
-         person.setAddress3(resultSet.getString(7));
-         person.setAddress4(resultSet.getString(8));
-         person.setcounty(resultSet.getString(9));
-         person.setProvince(resultSet.getString(10));
-         person.seteircode(resultSet.getString(11));
-
-         person.setPhoneID(resultSet.getInt(12));
-         person.setPhoneNumber(resultSet.getString(13));
-         person.setPhoneNumber2(resultSet.getString(14));
-         person.setEmailID(resultSet.getInt(15));
-         person.setEmailAddress(resultSet.getString(16));
-         person.setEmailAddress2(resultSet.getString(17));
+            person.setPhoneID(resultSet.getInt(12));
+            person.setPhoneNumber(resultSet.getString(13));
+            person.setPhoneNumber2(resultSet.getString(14));
+            person.setEmailID(resultSet.getInt(15));
+            person.setEmailAddress(resultSet.getString(16));
+            person.setEmailAddress2(resultSet.getString(17));
+            People.add(person);
+         }
          // return AddressBookEntry
-         return person;
+         return People;
       }
 
       // catch SQLException

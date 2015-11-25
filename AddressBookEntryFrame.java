@@ -66,7 +66,7 @@ public class AddressBookEntryFrame extends JInternalFrame {
       container.add( leftPanel, BorderLayout.WEST );
       container.add( rightPanel, BorderLayout.CENTER );
      
-      setBounds( xOffset, yOffset, 300, 300 );
+      setBounds( xOffset, yOffset, 400, 400 );
       xOffset = ( xOffset + 30 ) % 300;
       yOffset = ( yOffset + 30 ) % 300;
    }
